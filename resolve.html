@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+    async function finalRedirect(url) {
+        try {
+            let response = await fetch(url, {
+                method: "GET",
+                redirect: "follow"
+            });
+            // final URL
+            window.location.href = response.url;
+        } catch (e) {
+            document.write("Error: " + e);
+        }
+    }
+
+    // GET shortlink from query
+    const params = new URLSearchParams(window.location.search);
+    const link = params.get("url");
+
+    if(link){
+        finalRedirect(link);
+    } else {
+        document.write("No URL Provided.");
+    }
+</script>
+</body>
+</html>
